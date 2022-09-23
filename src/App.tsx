@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import SlipMessage from 'components/SlipMessage';
 import Button from 'components/Button';
