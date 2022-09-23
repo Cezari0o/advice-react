@@ -6,7 +6,7 @@ interface SlipMessageProps {
 
 function SlipMessage({text}: SlipMessageProps) {
   return (
-    <div className='mx-auto lg:max-w-[70%] my-9 md:max-w-md sm:max-w-xs'>
+    <div className='mx-auto lg:max-w-[70%] my-9 md:max-w-md sm:max-w-xs dark:text-gray-300'>
       <span className='text-xl'>&rdquo;{text}&rdquo;</span>
     </div>
   );
