@@ -4,6 +4,7 @@ import './App.css';
 import SlipMessage from 'components/SlipMessage';
 import Button from 'components/Button';
 import api from 'services/api';
+import SpinLoader from 'components/SpinLoader';
 
 interface SlipObject {
   slip_id: number;
@@ -12,7 +13,7 @@ interface SlipObject {
 
 function App() {
   const [loading, isLoading] = useState(false);
-  const [darkMode, isDarkMode] = useState(false);
+  const [darkMode, isDarkMode] = useState(true);
   const [mainSlipObj, setSlipObj] = useState<SlipObject | undefined>(undefined);
 
   async function fetchSlip() {
@@ -33,6 +34,7 @@ function App() {
       isLoading(false);
     }
   }
+
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -52,12 +54,16 @@ function App() {
           <h1 className='text-3xl dark:text-gray-300'>Your Daily Advice</h1>
         </header>
 
-        <SlipMessage text={mainSlipObj ? mainSlipObj.advice : 'Loading Advice'} />
+        {mainSlipObj ? (
+          <SlipMessage text={mainSlipObj.advice} />
+        ) : (
+          <SpinLoader className='flex py-10 place-content-center' />
+        )}
 
         <div className='justify-self-center justify-center space-x-2 container flex row-auto'>
           <Button text='More Advice' isLoading={loading} onClick={() => fetchSlip()} />
           <Button
-            text={`${darkMode ? 'Enable' : 'Disable'} Dark Mode`}
+            text={`${!darkMode ? 'Enable' : 'Disable'} Dark Mode`}
             onClick={() => {
               isDarkMode(!darkMode);
               console.log(`dark mode ${darkMode ? 'enabled' : 'disabled'}`);

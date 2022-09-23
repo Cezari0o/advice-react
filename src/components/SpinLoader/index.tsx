@@ -1,11 +1,11 @@
 import React from 'react';
 
-function SpinLoader() {
+function SpinLoader(props?: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div role='status'>
+    <div role='status' {...props}>
       <svg
         aria-hidden='true'
-        className='mr-2 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-[#bd7e70]'
+        className='mr-2 h-8 text-gray-200 animate-spin fill-[#bd7e70]'
         viewBox='0 0 100 101'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
