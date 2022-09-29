@@ -7,7 +7,7 @@ import SpinLoader from 'components/SpinLoader';
 import Table from 'components/Table';
 
 export interface SlipObject {
-  slip_id: number;
+  id: number;
   advice: string;
 }
 
@@ -18,6 +18,7 @@ interface Message {
 
 function App() {
   const [loading, isLoading] = useState(false);
+  const [loadingSlips, isLoadingSlips] = useState(false);
   const [darkMode, isDarkMode] = useState(true);
   const [mainSlipObj, setSlipObj] = useState<SlipObject | undefined>(undefined);
   const [slipList, setSlipList] = useState<SlipObject[]>([]);
@@ -55,6 +56,63 @@ function App() {
   useEffect(() => {
     fetchSlip();
   }, []);
+
+  async function fetchSlips(slipIds: number[]) {
+    const retrievedSlips: SlipObject[] = [];
+
+    for (const id of slipIds) {
+      try {
+        const response = await api.get(`/${id}`);
+        const someSlip: SlipObject = response.data.slip;
+
+        retrievedSlips.push(someSlip);
+      } catch (e) {
+        console.log('Error retrieving stored slips');
+        console.log(e);
+      }
+    }
+
+    return retrievedSlips;
+  }
+
+  useEffect(() => {
+    // Load Slips
+    const slipIds = localStorage.getItem('slipList');
+
+    try {
+      // Testing localStorage availability
+      localStorage.setItem('test', 'test');
+      localStorage.removeItem('test');
+    } catch (e) {
+      console.log("Nope, can't access localStorage");
+    }
+
+    if (slipIds) {
+      isLoadingSlips(true);
+      fetchSlips(JSON.parse(slipIds)).then((slips) => {
+        setSlipList(slips);
+        isLoadingSlips(false);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save Slips
+    if (slipList.length > 0) {
+      const slipListIds: number[] = [];
+
+      slipList.forEach((slip) => {
+        slipListIds.push(slip.id);
+      });
+      const slipListData = JSON.stringify(slipListIds);
+
+      try {
+        localStorage.setItem('slipList', slipListData);
+      } catch (error) {
+        console.log('Not possible to store the advices!');
+      }
+    }
+  }, [slipList]);
 
   const table_data = useMemo(() => slipList, [slipList]);
 
@@ -103,11 +161,15 @@ function App() {
           />
         </div>
 
-        <div className='w-full columns-1 lg:columns-2'>
-          {table_data.length > 0 && (
-            //
-            <Table data={table_data} />
-            //
+        <div className='inline w-full columns-1 xl:columns-2 '>
+          {loadingSlips ? (
+            <SpinLoader className='flex py-10 place-content-center' />
+          ) : (
+            table_data.length > 0 && (
+              //
+              <Table data={table_data} />
+              //
+            )
           )}
         </div>
       </div>
