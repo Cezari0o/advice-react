@@ -131,7 +131,7 @@ function App() {
 
   return (
     <div className={`App h-screen w-full overflow-auto bg-gray-100 dark:bg-slate-800 dark:text-gray-300 py-6`}>
-      <div className='container'>
+      <div className='container mx-auto px-5'>
         <header className=''>
           <h1 className='text-3xl'>Your Daily Advice</h1>
         </header>
@@ -161,7 +161,7 @@ function App() {
           />
         </div>
 
-        <div className='inline w-full columns-1 xl:columns-2 '>
+        <div className='inline w-screen columns-1 lg:columns-2'>
           {loadingSlips ? (
             <SpinLoader className='flex py-10 place-content-center' />
           ) : (

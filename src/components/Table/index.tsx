@@ -23,7 +23,7 @@ function Table({data}: Props) {
   return (
     <table
       {...getTableProps()}
-      className='border-separate border border-slate-400 rounded-md divide-y xl:divide-y-0 divide-slate-400'
+      className='border-separate border border-slate-400 rounded-md divide-y lg:divide-y-0 divide-slate-400'
     >
       <thead>
         {headerGroups.map((headerGroup, idx) => (
@@ -46,7 +46,7 @@ function Table({data}: Props) {
               <tr {...row.getRowProps()} key={'tb_row' + idx}>
                 {row.cells.map((cell, i) => (
                   <td
-                    className='border border-slate-400 rounded-md p-6 md:p-3 text-center xl:max-w-xl'
+                    className='border border-slate-400 rounded-md p-6 md:p-3 text-center lg:max-w-lg'
                     {...cell.getCellProps()}
                     key={'tb_row_cell_' + i}
                   >
