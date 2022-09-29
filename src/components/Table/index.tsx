@@ -1,7 +1,6 @@
 import {SlipObject} from 'App';
 import React, {useMemo} from 'react';
 import {usePagination, useTable} from 'react-table';
-// import  'react-table';
 
 interface Props {
   data: SlipObject[];

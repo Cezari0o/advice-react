@@ -130,9 +130,9 @@ function App() {
   }
 
   return (
-    <div className={`App h-screen w-full overflow-auto bg-gray-100 dark:bg-slate-800 dark:text-gray-300`}>
+    <div className={`App h-screen w-full overflow-auto bg-gray-100 dark:bg-slate-800 dark:text-gray-300 py-6`}>
       <div className='container'>
-        <header className='pt-8'>
+        <header className=''>
           <h1 className='text-3xl'>Your Daily Advice</h1>
         </header>
 
